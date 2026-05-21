@@ -1,40 +1,25 @@
+<script setup lang="ts">
+    import { RouterLink } from 'vue-router';
+    import NameCard from './NameCard.vue';
+</script>
+
 <template>
     <nav>
-        <div>
-            <strong>Team Builder</strong>
-            
-        </div>
-        <ul>
-            <li>Home</li>
-            <li><a href="#">About</a></li>
-        </ul>
-    </nav>
+        <NameCard></NameCard>
+        
+		<div class="panel row">
+            <RouterLink to="/"><div class="clickable">Home</div></RouterLink>
+		</div>
+	</nav>
 </template>
 
 <style scoped>
-    nav {
+    nav
+    {
+        padding: 8px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        background-color: #333;
-        color: white;
-    }
-
-    ul {
-        list-style: none;
-        display: flex;
-        gap: 1rem;
-        margin: 0;
-        padding: 0;
-    }
-
-    a {
-        color: white;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
+        background-color: steelblue;
+        border-bottom: 1px solid lightgray;
     }
 </style>
