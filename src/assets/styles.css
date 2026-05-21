@@ -8,8 +8,8 @@ body
     line-height: 1.6;*/
     text-align: center;
     min-width: 400px;
-        padding: 0px;
     margin: 0px;
+    padding: 0px;
 }
 #app
 {
@@ -31,8 +31,9 @@ a:hover
 {
     text-decoration: underline;
 }
-h3
+h1, h2, h3
 {
+    margin: 8px;
     text-transform: capitalize;
 }
 
@@ -168,10 +169,19 @@ ul
     transform: scale(100%);
 }*/
 
-h1, h2, h3
+
+
+
+.pixelated
 {
-    margin: 8px;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
 }
+
+
+
+
+
 
 
 /*Colors*/

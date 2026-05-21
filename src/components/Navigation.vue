@@ -9,6 +9,9 @@
         
 		<div class="panel row">
             <RouterLink to="/"><div class="clickable">Home</div></RouterLink>
+            <RouterLink to="/search"><div class="clickable">Search</div></RouterLink>
+            <RouterLink to="/compare"><div class="clickable">Compare</div></RouterLink>
+
 		</div>
 	</nav>
 </template>
