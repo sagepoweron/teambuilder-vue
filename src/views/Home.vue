@@ -3,6 +3,7 @@
     import type { Pokemon } from "../types";
 	import { GetPokemon } from "../api/api";
     import SpinningImages from "@/components/SpinningImages.vue";
+    import Chart from "@/components/Chart.vue";
 
 	const pokemon = ref<Pokemon | null>(null);
     const loading = ref(true);
@@ -29,7 +30,8 @@
     <main class="column">
         <h1>Home</h1>
         <SpinningImages v-if="pokemon" v-bind="pokemon"></SpinningImages>
-
+        <h2>{{ pokemon?.name }}</h2>
+        <Chart v-if="pokemon" v-bind="pokemon"></Chart>
         <!--
         <div v-if="loading">Loading...</div>
         <div v-else-if="error">Error: {{ error }}</div>
