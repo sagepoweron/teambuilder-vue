@@ -6,25 +6,48 @@
         <button @click="searchPokemon">Search</button>
     </div>
     
-    <div v-if="pokemon">
-        <h2>{{ pokemon.name }}</h2>
-    </div>
+	<div>
+		<div v-if="loading">Loading...</div>
+        <div v-else-if="pokemon">
+			<SpinningImages v-bind="pokemon"></SpinningImages>
+			<h2>{{ pokemon.name }}</h2>
+			<Chart v-bind="pokemon"></Chart>
+        </div>
+        <div v-else>
+            No data available.
+        </div>
+	</div>
   </div>
 </template>
 
 <script setup lang="ts">
     import { ref } from 'vue';
     import { SearchPokemon } from '../api/api';
+	import { GetPokemon } from "../api/api";
+	import SpinningImages from './SpinningImages.vue';
+	import type { Pokemon } from '@/types.ts';
+	import Chart from './Chart.vue';
 
     const searchQuery = ref('');
-    const pokemon = ref<{ id: any; name: any } | null>(null);
+	const pokemon = ref<Pokemon | null>(null);
+	const loading = ref(false);
 
-    const searchPokemon = () => {
-        console.log(`Searching for: ${searchQuery.value}`);
-        SearchPokemon(searchQuery.value)
-            .then((result) => { pokemon.value = result; })
-            .catch((err) => { console.error(err); pokemon.value = null; });
+    const searchPokemon = async () => {
+        
+		pokemon.value = null;
+		loading.value = true;
+
+		const searchResult = await SearchPokemon(searchQuery.value);
+
+		if (searchResult)
+		{
+			pokemon.value = await GetPokemon(searchResult.name);
+		}
+		
+		loading.value = false;
     };
+
+
 </script>
 
 <style scoped>

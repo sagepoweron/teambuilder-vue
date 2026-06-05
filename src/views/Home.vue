@@ -16,7 +16,7 @@
             const randomNumber = Math.floor(Math.random() * 1025) + 1;
 
             pokemon.value = await GetPokemon(randomNumber.toString());
-            console.log(pokemon.value?.name);
+            /*console.log(pokemon.value?.name);*/
         } catch (err) {
             error.value = (err as Error).message;
         } finally {
@@ -29,9 +29,11 @@
 <template>
     <main class="column">
         <h1>Home</h1>
-        <SpinningImages v-if="pokemon" v-bind="pokemon"></SpinningImages>
-        <h2>{{ pokemon?.name }}</h2>
-        <Chart v-if="pokemon" v-bind="pokemon"></Chart>
+        <div v-if="pokemon">
+            <SpinningImages v-bind="pokemon"></SpinningImages>
+            <h2>{{ pokemon.name }}</h2>
+            <Chart v-bind="pokemon"></Chart>
+        </div>
         <!--
         <div v-if="loading">Loading...</div>
         <div v-else-if="error">Error: {{ error }}</div>

@@ -53,7 +53,7 @@ export async function SearchPokemon(query: string) {
         const response = await fetch(`${BASE_URL}${encodeURIComponent(query)}`);
 
         if (!response.ok) {
-            throw new Error("Pokemon not found");
+            throw new Error("Pokemon not found.");
         }
 
         const data = await response.json();
