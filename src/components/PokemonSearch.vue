@@ -8,10 +8,10 @@
     
 	<div>
 		<div v-if="loading">Loading...</div>
-        <div v-else-if="pokemon">
-			<SpinningImages v-bind="pokemon"></SpinningImages>
+        <div v-else-if="pokemon" class="card column">
 			<h2>{{ pokemon.name }}</h2>
-			<Chart v-bind="pokemon"></Chart>
+            <img :src="pokemon.sprites.front_default" alt="Pokemon sprite" class="pixelated"/>
+            <router-link :to="`/pokemon/${pokemon.name}`" class="detail-button">View full details</router-link>
         </div>
         <div v-else>
             No data available.
@@ -24,9 +24,7 @@
     import { ref } from 'vue';
     import { SearchPokemon } from '../api/api';
 	import { GetPokemon } from "../api/api";
-	import SpinningImages from './SpinningImages.vue';
 	import type { Pokemon } from '@/types.ts';
-	import Chart from './Chart.vue';
 
     const searchQuery = ref('');
 	const pokemon = ref<Pokemon | null>(null);
@@ -65,5 +63,21 @@ input
     max-width: 400px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.detail-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: #2d8cf0;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+image {
+    display: block;
+    width: 150px;
+    height: 150px;
 }
 </style>

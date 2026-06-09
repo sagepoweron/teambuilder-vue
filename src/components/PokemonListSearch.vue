@@ -1,73 +1,80 @@
 <template>
-  <div class="pokemon-search">
-    <h1>Search for Pokemon</h1>
-    <input
-      v-model="searchQuery"
-      @input="searchPokemon"
-      placeholder="Enter Pokemon name or number"
-    />
-    <ul>
-      <li v-for="pokemon in pokemonList" :key="pokemon.id">
-        {{ pokemon.name }} ({{ pokemon.id }})
-      </li>
-    </ul>
-    <div v-if="pokemon">
-      <h2>{{ pokemon.name }}</h2>
-      <!-- Additional Pokemon details can be displayed here -->
+    <div class="pokemon-search column">
+        <h1>Pokemon List</h1>
+        <div class="row">
+            <button @click="onListButtonClick('0', '151')">1-151</button>
+            <button @click="onListButtonClick('151', '100')">152-251</button>
+            <button @click="onListButtonClick('251', '135')">252-386</button>
+            <button @click="onListButtonClick('386', '107')">387-493</button>
+            <button @click="onListButtonClick('493', '156')">494-649</button>
+            <button @click="onListButtonClick('649', '72')">650-721</button>
+            <button @click="onListButtonClick('721', '88')">722-809</button>
+            <button @click="onListButtonClick('809', '96')">810-905</button>
+            <button @click="onListButtonClick('905', '120')">906-1025</button>
+            <button @click="onListButtonClick('1025', '500')">Alternate Forms</button>
+            <button @click="clearSearchListClicked">Clear List</button>
+        </div>
+        
+        <ul>
+            <li v-for="result in searchResults" :key="result.id">
+                <div class="name">{{ result.id }} {{ result.name }}</div>
+                <router-link :to="`/pokemon/${result.name}`" class="detail-button">Details</router-link>
+            </li>
+        </ul>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
     import { ref } from 'vue';
-    import { SearchPokemon } from '../api/api';
+    import { GetPokemonList } from '../api/api';
 
-    const searchQuery = ref('');
-    const pokemonList = ref<Array<{ id: number; name: string }>>([]);
-    const pokemon = ref<{ id: any; name: any } | null>(null);
+    const offset = ref("0");
+    const limit = ref("10");
+    const searchResults = ref<Array<{ id: number, name: string }>>([]);
+    const loading = ref(false);
 
-    const searchPokemon = () => {
-        // Placeholder for API call
-        console.log(`Searching for: ${searchQuery.value}`);
-        SearchPokemon(searchQuery.value).then((result) => {
-            pokemon.value = result;
-        }).catch((err) => {
-            console.error(err);
-            pokemon.value = null;
+
+    function clearSearchListClicked()
+    {
+        searchResults.value = [];
+    }
+    async function onListButtonClick(offset: string, size: string)
+    {
+        loading.value = true;
+        //await sleep(1000);
+        const results = await GetPokemonList(offset, size);
+
+        searchResults.value = results.map((pokemon, index) => {
+            const id = parseInt(offset) + index + 1;
+            return { id, name: pokemon.name };
         });
-    };
+
+        loading.value = false;
+    }
+
 </script>
 
 <style scoped>
-.pokemon-search {
-  text-align: center;
-  margin: 20px;
-}
-
-input {
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 80%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  transition: background-color 0.3s;
-}
-
-li:hover {
-  background-color: #e0e0e0;
-}
+    .pokemon-search ul
+    {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .pokemon-search li
+    {
+        padding: 8px;
+        border-bottom: 1px solid #e9edf3;
+        display: flex;
+        justify-content: space-between;
+        
+    }
+    .pokemon-search li:last-child
+    {
+        border-bottom: none;
+    }
+    .name
+    {
+        text-transform: capitalize;
+    }
 </style>

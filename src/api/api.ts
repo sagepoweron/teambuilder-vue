@@ -1,6 +1,8 @@
+import type { Pokemon } from "@/types";
+
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
 
-export async function GetPokemon(query: string)
+export async function GetPokemon(query: string): Promise<Pokemon | null>
 {
     try
     {
@@ -24,9 +26,11 @@ export async function GetPokemon(query: string)
     {
         console.error(error);
     }
+
+    return null;
 }
 
-export async function GetPokemonList(offset: string, limit: string)
+export async function GetPokemonList(offset: string, limit: string): Promise<Array<{ name: string, url: string }>>
 {
     try
     {
@@ -46,6 +50,8 @@ export async function GetPokemonList(offset: string, limit: string)
     {
         console.error(error);
     }
+
+    return [];
 }
 
 export async function SearchPokemon(query: string) {

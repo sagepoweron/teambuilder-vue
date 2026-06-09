@@ -3,7 +3,6 @@
     import type { Pokemon } from "../types";
 	import { GetPokemon } from "../api/api";
     import SpinningImages from "@/components/SpinningImages.vue";
-    import Chart from "@/components/Chart.vue";
 
 	const pokemon = ref<Pokemon | null>(null);
     const loading = ref(true);
@@ -31,8 +30,8 @@
         <h1>Home</h1>
         <div v-if="pokemon">
             <SpinningImages v-bind="pokemon"></SpinningImages>
-            <h2>{{ pokemon.name }}</h2>
-            <Chart v-bind="pokemon"></Chart>
+            <h2>#{{ pokemon.id }} {{ pokemon.name }}</h2>
+            <router-link :to="`/pokemon/${pokemon.name}`" class="detail-button">View full details</router-link>
         </div>
         <!--
         <div v-if="loading">Loading...</div>
@@ -53,4 +52,13 @@
 </template>
 
 <style scoped>
+    .detail-button {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.75rem 1.25rem;
+        background: #2d8cf0;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+    }
 </style>

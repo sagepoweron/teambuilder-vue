@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Search from '@/views/Search.vue'
 import Compare from '@/views/Compare.vue'
+import PokemonDetail from '@/views/PokemonDetail.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -16,6 +17,12 @@ const router = createRouter({
       name: 'search',
       component: Search
       //component: () => import('@/views/Search.vue')
+    },
+    {
+      path: '/pokemon/:query',
+      name: 'pokemon-detail',
+      component: PokemonDetail,
+      props: true
     },
     {
       path: '/compare',

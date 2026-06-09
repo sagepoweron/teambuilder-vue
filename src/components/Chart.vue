@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="chart-container card">
         <Radar :data="chartData" :options="chartOptions"></Radar>
     </div>
 </template>
@@ -60,7 +60,7 @@
 </script>
 
 <style scoped>
-    div
+    .chart-container
     {
         max-width: 400px;
     }
