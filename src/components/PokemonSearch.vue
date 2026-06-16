@@ -12,6 +12,7 @@
 			<h2>{{ pokemon.name }}</h2>
             <img :src="pokemon.sprites.front_default" alt="Pokemon sprite" class="pixelated"/>
             <router-link :to="`/pokemon/${pokemon.name}`" class="detail-button">View full details</router-link>
+            <button @click="addToCompare">Add to Compare</button>
         </div>
         <div v-else>
             No data available.
@@ -25,6 +26,7 @@
     import { SearchPokemon } from '../api/api';
 	import { GetPokemon } from "../api/api";
 	import type { Pokemon } from '@/types.ts';
+    import { store } from '@/api/compareStore';
 
     const searchQuery = ref('');
 	const pokemon = ref<Pokemon | null>(null);
@@ -44,7 +46,11 @@
 		
 		loading.value = false;
     };
-
+    const addToCompare = () => {
+        if (pokemon.value) {
+            store.list.push(pokemon.value.name);
+        }
+    };
 
 </script>
 

@@ -1,15 +1,25 @@
 <script setup lang="ts">
     import type { Pokemon } from '@/types';
 
-    const props = defineProps<Pokemon>();
+    interface Props
+    {
+        pokemon: Pokemon
+    }
+    const props = defineProps<Props>();
+
+    //const props = defineProps<{
+    //    pokemon: Pokemon
+    //}>();
+    //const props = defineProps<Pokemon>();
+
 </script>
 
 <template>
     <div class="outline">
         <div class="container">
             <div class="cube">
-                <div class="front"><img class="pixelated" :src="props.sprites.front_default"></img></div>
-                <div class="back"><img class="pixelated" :src="props.sprites.front_shiny"></img></div>
+                <div class="front"><img class="pixelated" :src="props.pokemon.sprites.front_default"></img></div>
+                <div class="back"><img class="pixelated" :src="props.pokemon.sprites.front_shiny"></img></div>
             </div>
         </div>
     </div>

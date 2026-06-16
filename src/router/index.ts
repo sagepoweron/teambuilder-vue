@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
-import Search from '@/views/Search.vue'
-import Compare from '@/views/Compare.vue'
-import PokemonDetail from '@/views/PokemonDetail.vue'
+import HomePage from '@/views/HomePage.vue'
+import SearchPage from '@/views/SearchPage.vue'
+import ComparePage from '@/views/ComparePage.vue'
+import DetailsPage from '@/views/DetailsPage.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -10,24 +10,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: HomePage
     },
     {
       path: '/search',
       name: 'search',
-      component: Search
+      component: SearchPage
       //component: () => import('@/views/Search.vue')
     },
     {
       path: '/pokemon/:query',
-      name: 'pokemon-detail',
-      component: PokemonDetail,
+      name: 'details',
+      component: DetailsPage,
       props: true
     },
     {
       path: '/compare',
       name: 'compare',
-      component: Compare
+      component: ComparePage
       //component: () => import('@/views/Compare.vue')
     }
   ],

@@ -9,7 +9,7 @@
         <div v-else-if="error" class="status error">{{ error }}</div>
         <div v-else-if="pokemon" class="row">
             <div class="column">
-                <SpinningImages v-bind="pokemon" />
+                <SpinningImages :pokemon="pokemon" />
                 <h2>#{{ pokemon.id }} {{ pokemon.name }}</h2>
                 <div class="sprites">
                     <img v-if="pokemon.sprites.front_default" :src="pokemon.sprites.front_default" alt="Front default" />
@@ -26,7 +26,7 @@
             </div>
 
             <div class="stats-panel">
-                <Chart v-bind="pokemon" />
+                <Chart :pokemon="pokemon" />
                 <div class="stat-list card">
                     <h2>Base Stats</h2>
                     <ul>
@@ -43,35 +43,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
-import { GetPokemon } from '@/api/api';
-import type { Pokemon } from '@/types';
-import SpinningImages from '@/components/SpinningImages.vue';
-import Chart from '@/components/Chart.vue';
+    import { ref, onMounted, watch } from 'vue';
+    import { useRoute } from 'vue-router';
+    import { GetPokemon } from '@/api/api';
+    import type { Pokemon } from '@/types';
+    import SpinningImages from '@/components/SpinningImages.vue';
+    import Chart from '@/components/Chart.vue';
 
-const route = useRoute();
-const pokemon = ref<Pokemon | null>(null);
-const loading = ref(true);
-const error = ref<string | null>(null);
+    const route = useRoute();
+    const pokemon = ref<Pokemon | null>(null);
+    const loading = ref(true);
+    const error = ref<string | null>(null);
 
-const fetchPokemon = async (query: string) => {
-    loading.value = true;
-    error.value = null;
-    pokemon.value = null;
+    const fetchPokemon = async (query: string) => {
+        loading.value = true;
+        error.value = null;
+        pokemon.value = null;
 
-    try {
-        const data = await GetPokemon(query);
-        if (!data) {
-            throw new Error('Pokemon not found.');
+        try {
+            const data = await GetPokemon(query);
+            if (!data) {
+                throw new Error('Pokemon not found.');
+            }
+            pokemon.value = data;
+        } catch (err) {
+            error.value = (err as Error).message || 'Unable to load Pokemon details.';
+        } finally {
+            loading.value = false;
         }
-        pokemon.value = data;
-    } catch (err) {
-        error.value = (err as Error).message || 'Unable to load Pokemon details.';
-    } finally {
-        loading.value = false;
-    }
-};
+    };
 
     onMounted(() => {
         const query = route.params.query;
@@ -88,7 +88,7 @@ const fetchPokemon = async (query: string) => {
             fetchPokemon(newQuery);
         }
     }
-);
+    );
 </script>
 
 <style scoped>

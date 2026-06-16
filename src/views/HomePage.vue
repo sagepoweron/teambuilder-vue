@@ -29,7 +29,7 @@
     <main class="column">
         <h1>Home</h1>
         <div v-if="pokemon">
-            <SpinningImages v-bind="pokemon"></SpinningImages>
+            <SpinningImages :pokemon="pokemon"></SpinningImages>
             <h2>#{{ pokemon.id }} {{ pokemon.name }}</h2>
             <router-link :to="`/pokemon/${pokemon.name}`" class="detail-button">View full details</router-link>
         </div>

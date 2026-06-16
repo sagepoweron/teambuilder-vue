@@ -13,14 +13,18 @@
     import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
     ChartJS.register( RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend );
 
-    const props = defineProps<Pokemon>();
+    interface Props
+    {
+        pokemon: Pokemon
+    }
+    const props = defineProps<Props>();
 
     // reactive chart data/options exposed to the template
     const chartData = ref<any>({});
     const chartOptions = ref<any>({});
 
 
-    const stats = [...props.stats];
+    const stats = [...props.pokemon.stats];
         // swap sp attack and speed to match game layout
         // use non-null assertions to satisfy TypeScript that indexed elements exist
         [stats[5]!, stats[3]!] = [stats[3]!, stats[5]!];
