@@ -54,7 +54,14 @@ export async function GetPokemonList(offset: string, limit: string): Promise<Arr
     return [];
 }
 
-export async function SearchPokemon(query: string) {
+
+export interface SearchResult
+{
+    id: string
+    name: string
+}
+export async function SearchPokemon(query: string): Promise<SearchResult | null>
+{
     try {
         const response = await fetch(`${BASE_URL}${encodeURIComponent(query)}`);
 

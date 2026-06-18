@@ -1,32 +1,7 @@
-<template>
-    <div class="pokemon-search column">
-        <h1>Pokemon List</h1>
-        <div class="row">
-            <button @click="onListButtonClick('0', '151')">1-151</button>
-            <button @click="onListButtonClick('151', '100')">152-251</button>
-            <button @click="onListButtonClick('251', '135')">252-386</button>
-            <button @click="onListButtonClick('386', '107')">387-493</button>
-            <button @click="onListButtonClick('493', '156')">494-649</button>
-            <button @click="onListButtonClick('649', '72')">650-721</button>
-            <button @click="onListButtonClick('721', '88')">722-809</button>
-            <button @click="onListButtonClick('809', '96')">810-905</button>
-            <button @click="onListButtonClick('905', '120')">906-1025</button>
-            <button @click="onListButtonClick('1025', '500')">Alternate Forms</button>
-            <button @click="clearSearchListClicked">Clear List</button>
-        </div>
-        
-        <ul>
-            <li v-for="result in searchResults" :key="result.id">
-                <div class="name">{{ result.id }} {{ result.name }}</div>
-                <router-link :to="`/pokemon/${result.name}`" class="detail-button">Details</router-link>
-            </li>
-        </ul>
-    </div>
-</template>
-
 <script setup lang="ts">
     import { ref } from 'vue';
     import { GetPokemonList } from '../api/api';
+    import { AddToCompareList, RemoveFromCompareList, IsInCompareList, store } from '@/api/compareStore';
 
     const offset = ref("0");
     const limit = ref("10");
@@ -54,14 +29,41 @@
 
 </script>
 
+<template>
+    <div class="pokemon-search column">
+        <h1>Pokemon List</h1>
+        <div class="row">
+            <button @click="onListButtonClick('0', '151')">1-151</button>
+            <button @click="onListButtonClick('151', '100')">152-251</button>
+            <button @click="onListButtonClick('251', '135')">252-386</button>
+            <button @click="onListButtonClick('386', '107')">387-493</button>
+            <button @click="onListButtonClick('493', '156')">494-649</button>
+            <button @click="onListButtonClick('649', '72')">650-721</button>
+            <button @click="onListButtonClick('721', '88')">722-809</button>
+            <button @click="onListButtonClick('809', '96')">810-905</button>
+            <button @click="onListButtonClick('905', '120')">906-1025</button>
+            <button @click="onListButtonClick('1025', '500')">Alternate Forms</button>
+            <button @click="clearSearchListClicked">Clear List</button>
+        </div>
+        
+        <ul>
+            <li v-for="result in searchResults" :key="result.id">
+                <div class="capitalized">{{ result.id }} {{ result.name }}</div>
+                <div>
+                    <router-link :to="`/pokemon/${result.name}`" class="detail-button">
+                        <button>Details</button>
+                    </router-link>
+                    <button v-if="!IsInCompareList(result.name)" @click="AddToCompareList(result.name)" class="add">Add</button>
+                    <button v-else @click="RemoveFromCompareList(result.name)" class="remove">Remove</button>
+                </div>
+                
+            </li>
+        </ul>
+    </div>
+</template>
+
 <style scoped>
-    .pokemon-search ul
-    {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .pokemon-search li
+    li
     {
         padding: 8px;
         border-bottom: 1px solid #e9edf3;
@@ -69,12 +71,8 @@
         justify-content: space-between;
         
     }
-    .pokemon-search li:last-child
+    li:last-child
     {
         border-bottom: none;
-    }
-    .name
-    {
-        text-transform: capitalize;
     }
 </style>

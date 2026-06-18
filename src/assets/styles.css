@@ -93,6 +93,9 @@ h1, h2, h3
 ul
 {
     padding-inline-start: 0px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 
@@ -179,8 +182,18 @@ ul
     image-rendering: pixelated;
     -ms-interpolation-mode: nearest-neighbor;
 }
-
-
+.capitalized
+{
+    text-transform: capitalize;
+}
+.add
+{
+    background-color: rgb(107, 255, 107);
+}
+.remove
+{
+    background-color: rgb(255, 123, 123);
+}
 
 
 

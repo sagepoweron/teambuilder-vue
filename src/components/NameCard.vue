@@ -1,7 +1,7 @@
 <template>
     <a href="https://sagepoweron.github.io/"  class="nameCard">
-        <span class="capitalize">J</span>
-        <span class="letters">on</span> <span class="capitalize">T</span>
+        <span class="large">J</span>
+        <span class="letters">on</span> <span class="large">T</span>
         <span class="letters">ate</span>
         
         <!--
@@ -37,7 +37,7 @@
     {
         max-width: 50px;
     }
-    .capitalize
+    .large
     {
         font-size:xx-large;
     }

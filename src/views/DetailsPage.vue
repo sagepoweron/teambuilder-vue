@@ -1,47 +1,3 @@
-<template>
-    <main class="column">
-        <div class="column">
-            <h1>Pokemon Details</h1>
-            <router-link class="back-link" to="/search">Back to Search</router-link>
-        </div>
-
-        <div v-if="loading" class="status">Loading...</div>
-        <div v-else-if="error" class="status error">{{ error }}</div>
-        <div v-else-if="pokemon" class="row">
-            <div class="column">
-                <SpinningImages :pokemon="pokemon" />
-                <h2>#{{ pokemon.id }} {{ pokemon.name }}</h2>
-                <div class="sprites">
-                    <img v-if="pokemon.sprites.front_default" :src="pokemon.sprites.front_default" alt="Front default" />
-                    <img v-if="pokemon.sprites.back_default" :src="pokemon.sprites.back_default" alt="Back default" />
-                </div>
-                <div class="info-box">
-                    <h2>Types</h2>
-                    <div class="type-list">
-                        <div v-for="typeInfo in pokemon.types" :key="typeInfo.slot" class="type-pill" :class="typeInfo.type.name.toLowerCase()">
-                            {{ typeInfo.type.name }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stats-panel">
-                <Chart :pokemon="pokemon" />
-                <div class="stat-list card">
-                    <h2>Base Stats</h2>
-                    <ul>
-                    <li v-for="stat in pokemon.stats" :key="stat.stat.name">
-                        <strong>{{ stat.stat.name }}:</strong>
-                        <div>{{ stat.base_stat }}</div>
-                    </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div v-else class="status">No Pokemon data found.</div>
-    </main>
-</template>
-
 <script setup lang="ts">
     import { ref, onMounted, watch } from 'vue';
     import { useRoute } from 'vue-router';
@@ -49,6 +5,7 @@
     import type { Pokemon } from '@/types';
     import SpinningImages from '@/components/SpinningImages.vue';
     import Chart from '@/components/Chart.vue';
+    import { AddToCompareList, IsInCompareList, RemoveFromCompareList } from '@/api/compareStore';
 
     const route = useRoute();
     const pokemon = ref<Pokemon | null>(null);
@@ -90,6 +47,57 @@
     }
     );
 </script>
+
+
+<template>
+    <main class="column">
+        <div class="column">
+            <h1>Pokemon Details</h1>
+            <router-link class="back-link" to="/search">Back to Search</router-link>
+        </div>
+
+        <div v-if="loading" class="status">Loading...</div>
+        <div v-else-if="error" class="status error">{{ error }}</div>
+        <div v-else-if="pokemon" class="column">
+            <h2>#{{ pokemon.id }} {{ pokemon.name }}</h2>
+            <button v-if="!IsInCompareList(pokemon.name)" @click="AddToCompareList(pokemon.name)" class="add">Add</button>
+            <button v-else @click="RemoveFromCompareList(pokemon.name)" class="remove">Remove</button>
+            <div class="row">
+                <div class="column">
+                    <SpinningImages :pokemon="pokemon" />
+                    <div class="sprites">
+                        <img v-if="pokemon.sprites.front_default" :src="pokemon.sprites.front_default" alt="Front default" />
+                        <img v-if="pokemon.sprites.back_default" :src="pokemon.sprites.back_default" alt="Back default" />
+                    </div>
+                    <div class="info-box">
+                        <h2>Types</h2>
+                        <div class="type-list">
+                            <div v-for="typeInfo in pokemon.types" :key="typeInfo.slot" class="type-pill" :class="typeInfo.type.name.toLowerCase()">
+                                {{ typeInfo.type.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-panel">
+                    <Chart :pokemon="pokemon" />
+                    <div class="stat-list card">
+                        <h2>Base Stats</h2>
+                        <ul>
+                        <li v-for="stat in pokemon.stats" :key="stat.stat.name">
+                            <strong>{{ stat.stat.name }}:</strong>
+                            <div>{{ stat.base_stat }}</div>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else class="status">No Pokemon data found.</div>
+    </main>
+</template>
+
+
 
 <style scoped>
 
