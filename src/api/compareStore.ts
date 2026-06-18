@@ -1,23 +1,24 @@
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
-export const store = reactive({
+export const store = ref({
 	list: [] as string[]
 })
 
+
 export function AddToCompareList(name: string)
 {
-	if (store.list.includes(name || '')) {
+	if (store.value.list.includes(name || '')) {
 		// alert('This Pokemon is already in the compare list.');
 		return;
 	}
-	store.list.push(name);
+	store.value.list.push(name);
 	// alert('Pokemon added to the compare list.');
 }
 export function RemoveFromCompareList(name: string)
 {
-	const index = store.list.indexOf(name);
+	const index = store.value.list.indexOf(name);
 	if (index > -1) {
-		store.list.splice(index, 1);
+		store.value.list.splice(index, 1);
 		// alert('Pokemon removed from the compare list.');
 	} else {
 		// alert('This Pokemon is not in the compare list.');
@@ -25,11 +26,11 @@ export function RemoveFromCompareList(name: string)
 }
 export function IsInCompareList(name: string): boolean
 {
-	return store.list.includes(name);
+	return store.value.list.includes(name);
 }
 
 export function ClearCompareList()
 {
-	store.list = [];
+	store.value.list = [];
 	// alert('Compare list cleared.');
 }

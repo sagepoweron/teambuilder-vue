@@ -16,7 +16,7 @@ const fetchPokemon = async (query: string) => {
         if (!data) {
             throw new Error('Pokemon not found.');
         }
-        pokemon= data;
+        pokemon = data;
     } catch (err) {
         console.error(err);
     } finally {
@@ -26,11 +26,21 @@ const fetchPokemon = async (query: string) => {
     }
 };
 
-onMounted(() => {
-    for (const name of store.list)
+function CreateList()
+{
+    pokemonList.value = [];
+    for (const name of store.value.list)
     {
         fetchPokemon(name);
     }
+}
+
+onMounted(() => {
+    CreateList();
+});
+watch(store.value, () => {
+    //console.log("Compare list changed, updating Pokemon list...");
+    CreateList();
 });
 </script>
 
