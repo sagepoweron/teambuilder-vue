@@ -11,7 +11,7 @@
             <RouterLink to="/"><div class="clickable">Home</div></RouterLink>
             <RouterLink to="/search"><div class="clickable">Search</div></RouterLink>
             <RouterLink to="/compare"><div class="clickable">Compare</div></RouterLink>
-
+            <RouterLink to="/team"><div class="clickable">Team</div></RouterLink>
 		</div>
 	</nav>
 </template>

@@ -17,9 +17,9 @@
 <template>
     <div class="outline">
         <div class="container">
-            <div class="cube">
-                <div class="front"><img class="pixelated" :src="props.pokemon.sprites.front_default"></img></div>
-                <div class="back"><img class="pixelated" :src="props.pokemon.sprites.front_shiny"></img></div>
+            <div class="spin">
+                <div class="front"><img class="pixelated image" :src="props.pokemon.sprites.front_default"></img></div>
+                <div class="back"><img class="pixelated image" :src="props.pokemon.sprites.front_shiny"></img></div>
             </div>
         </div>
     </div>
@@ -46,14 +46,22 @@
         perspective-origin: top;
     }
 
-    .cube
+
+    
+    .spin
     {
         width: 100%;
         height: 100%;
         transform-style: preserve-3d;
+        animation: spin 5s infinite linear;
+    }
+    @keyframes spin
+    {
+        from { transform: rotateY(0); }
+        to { transform: rotateY(-360deg); }
     }
 
-    .cube div
+    .spin div
     {
         position: absolute;
         top: 0px;
@@ -62,19 +70,24 @@
         bottom: 0px;
     }
 
+    .front
+    {
+        transform-style: preserve-3d;
+    }
     .back
     {
-        transform: translateZ(-100px) rotateY(180deg);
-    }
-    .right
-    {
-        transform: rotateY(-270deg) translateX(100px);
-        transform-origin: top right;
+        transform-style: preserve-3d;
+        transform: rotateY(180deg);
     }
     .left
     {
-        transform: rotateY(270deg) translateX(-100px);
-        transform-origin: center left;
+        transform-style: preserve-3d;
+        transform: rotateY(270deg);
+    }
+    .right
+    {
+        transform-style: preserve-3d;
+        transform: rotateY(-270deg);
     }
     .top
     {
@@ -89,20 +102,10 @@
         border: 2px solid black;
         border-radius: 50%;
     }
-    .front
+
+    .image
     {
         transform: translateZ(100px);
-    }
-
-    @keyframes spin
-    {
-        from { transform: rotateY(0); }
-        to { transform: rotateY(-360deg); }
-    }
-
-    .cube
-    {
-        animation: spin 5s infinite linear;
     }
 
     img
