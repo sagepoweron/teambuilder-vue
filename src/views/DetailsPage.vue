@@ -6,6 +6,7 @@
     import SpinningImages from '@/components/SpinningImages.vue';
     import Chart from '@/components/Chart.vue';
     import { AddToCompareList, IsInCompareList, RemoveFromCompareList } from '@/api/compareStore';
+import StatsTable from '@/components/StatsTable.vue';
 
     const route = useRoute();
     const pokemon = ref<Pokemon | null>(null);
@@ -81,17 +82,19 @@
 
                 <div class="stats-panel">
                     <Chart :pokemon="pokemon" />
-                    <div class="stat-list card">
+                    <!--div class="stat-list card">
                         <h2>Base Stats</h2>
                         <ul>
-                        <li v-for="stat in pokemon.stats" :key="stat.stat.name">
-                            <strong>{{ stat.stat.name }}:</strong>
-                            <div>{{ stat.base_stat }}</div>
-                        </li>
+                            <li v-for="stat in pokemon.stats" :key="stat.stat.name">
+                                <strong>{{ stat.stat.name }}:</strong>
+                                <div>{{ stat.base_stat }}</div>
+                            </li>
                         </ul>
-                    </div>
+                    </div-->
+                    <StatsTable :pokemon="pokemon"></StatsTable>
                 </div>
             </div>
+            
         </div>
         <div v-else class="status">No Pokemon data found.</div>
     </main>
@@ -148,6 +151,7 @@
 .stats-panel {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
 }
 .stat-list ul

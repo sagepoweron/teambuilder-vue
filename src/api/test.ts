@@ -41,3 +41,12 @@ export const GetPokemon = async () => {
     const data = await response.json();
     return data;
 }
+
+export const natures = ["adamant", "bashful", "bold", "brave", "calm", "careful", "docile", "gentle", "hardy", "hasty", "impish", "jolly", "lax", "lonely", "mild", "modest", "naive", "naughty", "quiet", "quirky", "rash", "relaxed", "sassy", "serious", "timid"];
+
+export interface Nature
+{
+    name: string
+    increase: number
+    decrease: number
+}
