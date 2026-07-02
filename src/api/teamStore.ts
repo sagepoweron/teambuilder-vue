@@ -1,9 +1,8 @@
 import { ref } from 'vue'
 
 
-interface Pokemon
+interface TeamMember
 {
-	id: number
 	name: string
 	level: number
 	nature: string
@@ -13,36 +12,59 @@ interface Pokemon
 
 
 export const store = ref({
-	list: [] as Pokemon[]
+	list: [] as TeamMember[]
 })
 
 
-export function AddToList(pokemon: Pokemon)
+export function AddToList(instance: TeamMember)
 {
-	if (store.value.list.includes(pokemon)) {
-		// alert('This Pokemon is already in the compare list.');
+	if (store.value.list.length >= 6) {
+		alert('Your team is full. You cannot add more than 6 Pokemon.');
 		return;
 	}
-	store.value.list.push(pokemon);
-	// alert('Pokemon added to the compare list.');
+	if (store.value.list.some(p => p.name === instance.name)) {
+		alert('This Pokemon is already in your team.');
+		return;
+	}
+	store.value.list.push(instance);
+	alert('Pokemon added to your team.');
 }
-export function RemoveFromList(pokemon: Pokemon)
+export function RemoveFromList(instance: TeamMember)
 {
-	const index = store.value.list.indexOf(pokemon);
+	const index = store.value.list.findIndex(p => p.name === instance.name);
 	if (index > -1) {
 		store.value.list.splice(index, 1);
-		// alert('Pokemon removed from the compare list.');
+		alert('Pokemon removed from your team.');
 	} else {
-		// alert('This Pokemon is not in the compare list.');
+		alert('This Pokemon is not in your team.');
 	}
 }
-export function IsInCompareList(pokemon: Pokemon): boolean
+export function RemoveFromListByName(name: string)
 {
-	return store.value.list.includes(pokemon);
+	const index = store.value.list.findIndex(p => p.name === name);
+	if (index > -1) {
+		store.value.list.splice(index, 1);
+		alert('Pokemon removed from your team.');
+	} else {
+		alert('This Pokemon is not in your team.');
+	}
+}
+export function RemoveByIndex(index: number)
+{
+	if (index > -1 && index < store.value.list.length) {
+		store.value.list.splice(index, 1);
+		alert('Pokemon removed from your team.');
+	} else {
+		alert('Invalid index.');
+	}
+}
+export function IsInList(name: string): boolean
+{
+	return store.value.list.some(p => p.name === name);
 }
 
-export function ClearCompareList()
+export function ClearList()
 {
 	store.value.list = [];
-	// alert('Compare list cleared.');
+	alert('Your team has been cleared.');
 }

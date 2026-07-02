@@ -53,6 +53,7 @@
     {
         perspective: 1000px;
         perspective-origin: 0px -200px;
+        height: 200px;
     }
 
     .spin
@@ -130,14 +131,14 @@
     .number
     {
         transform: translateY(50px) translateZ(200px) rotateX(90deg);
-        font-size: 100px;
+        font-size: 64px;
         font-weight: bold;
         display: flex;
         align-items: center;
         justify-content: center;
         border: 1px solid black;
         border-radius: 50%;
-        background-color: rgb(163, 146, 48);
+        background-color: rgb(102, 161, 172);
     }
     
 

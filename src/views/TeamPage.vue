@@ -3,6 +3,7 @@
     import type { Pokemon } from "../types";
 	import { GetPokemon } from "../api/api";
     import TeamImages from "@/components/TeamImages.vue";
+    import { store, ClearList, RemoveFromList } from '@/api/teamStore';
 
 	const pokemon = ref<Pokemon | null>(null);
     const loading = ref(true);
@@ -47,6 +48,31 @@
             No data available.
         </div>
         -->
+        <ul>
+            <li v-for="instance in store.list" :key="instance.name" class="column card">
+                <h2>{{ instance.name }}</h2>
+                <div class="row">
+                    <div class="tableColumn">
+                        <strong class="cell">Level</strong>
+                        <div class="cell">{{ instance.level }}</div>
+                    </div>
+                    <div class="tableColumn">
+                        <strong class="cell">Nature</strong>
+                        <div class="cell">{{ instance.nature }}</div>
+                    </div>
+                </div>
+                <button @click="RemoveFromList(instance)">Remove from Team</button>
+                <!--
+                <h1>{{ instance.name }}</h1>
+                <h2>Base Stats</h2>
+                <ul class="row">
+                    <li v-for="stat in pokemon.stats" :key="stat.stat.name">
+                        <strong>{{ stat.stat.name }}:</strong>
+                        <div>{{ stat.base_stat }}</div>
+                    </li>
+                </ul>-->
+            </li>
+        </ul>
 	</main>
 </template>
 
