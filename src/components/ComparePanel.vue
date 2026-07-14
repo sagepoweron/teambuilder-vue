@@ -1,10 +1,10 @@
 <template>
-    <div class="panel">
+    <div class="bar">
         <h2>Compare List</h2>
 
         <div class="list">
-            <div v-for="name in store.list" :key="name" class="card column">
-                <h3 class="capitalized">{{ name }}</h3>
+            <div v-for="name in store.list" :key="name" class="card">
+                <p class="capitalized">{{ name }}</p>
                 <router-link :to="`/pokemon/${name}`" class="detail-button">
                     <button>Details</button>
                 </router-link>
@@ -29,37 +29,17 @@
     {
         padding: 8px;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
         background-color: rgb(180, 142, 70);
         border-bottom: 1px solid lightgray;
     }
-    .panel
-    {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: rgb(180, 142, 70);
-        border: 1px solid lightgray;
-        border-radius: 16px;
-        gap: 16px;
-    }
     .list
     {
-        width: 400px;
-        overflow-x: scroll;
-        /*white-space: nowrap;*/
+        height: 400px;
+        overflow-y: scroll;
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        
-    }
-    .card2
-    {
-        /*display: inline-block; /* Keep items side-by-side */
-        display: inline-flex;
         flex-direction: column;
-
+        
     }
 </style>

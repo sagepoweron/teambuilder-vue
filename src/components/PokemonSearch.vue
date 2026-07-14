@@ -12,8 +12,8 @@
 			<h2>{{ pokemon.name }}</h2>
             <img :src="pokemon.sprites.front_default" alt="Pokemon sprite" class="pixelated"/>
             <router-link :to="`/pokemon/${pokemon.name}`" class="detail-button">View full details</router-link>
-            <button v-if="!IsInCompareList(pokemon.name)" @click="AddToCompareList(pokemon.name)">Add to Compare</button>
-            <button v-else @click="RemoveFromCompareList(pokemon.name)">Remove from Compare</button>
+            <button v-if="!IsInCompareList(pokemon.name)" @click="Add(pokemon.name)">Add to Compare</button>
+            <button v-else @click="Remove(pokemon.name)">Remove from Compare</button>
         </div>
         <div v-else>
             No data available.
@@ -27,7 +27,7 @@
     import { SearchPokemon } from '../api/api';
 	import { GetPokemon } from "../api/api";
 	import type { Pokemon } from '@/types.ts';
-    import { AddToCompareList, IsInCompareList, RemoveFromCompareList } from '@/api/compareStore';
+    import { Add, IsInCompareList, Remove } from '@/api/compareStore';
 
     const searchQuery = ref('');
 	const pokemon = ref<Pokemon | null>(null);

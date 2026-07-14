@@ -5,7 +5,7 @@ export const store = ref({
 })
 
 
-export function AddToCompareList(name: string)
+export function Add(name: string)
 {
 	if (store.value.list.includes(name || '')) {
 		// alert('This Pokemon is already in the compare list.');
@@ -14,7 +14,7 @@ export function AddToCompareList(name: string)
 	store.value.list.push(name);
 	// alert('Pokemon added to the compare list.');
 }
-export function RemoveFromCompareList(name: string)
+export function Remove(name: string)
 {
 	const index = store.value.list.indexOf(name);
 	if (index > -1) {

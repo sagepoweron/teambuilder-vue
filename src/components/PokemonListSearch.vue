@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { GetPokemonList } from '../api/api';
-    import { AddToCompareList, RemoveFromCompareList, IsInCompareList, store } from '@/api/compareStore';
+    import { Add, Remove, IsInCompareList, store } from '@/api/compareStore';
 
     const offset = ref("0");
     const limit = ref("10");
@@ -26,6 +26,8 @@
 
         loading.value = false;
     }
+
+    
 
 </script>
 
@@ -53,8 +55,8 @@
                     <router-link :to="`/pokemon/${result.name}`" class="detail-button">
                         <button>Details</button>
                     </router-link>
-                    <button v-if="!IsInCompareList(result.name)" @click="AddToCompareList(result.name)" class="add">Add</button>
-                    <button v-else @click="RemoveFromCompareList(result.name)" class="remove">Remove</button>
+                    <button v-if="!IsInCompareList(result.name)" @click="Add(result.name)" class="add">Add</button>
+                    <button v-else @click="Remove(result.name)" class="remove">Remove</button>
                 </div>
                 
             </li>

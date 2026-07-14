@@ -5,8 +5,8 @@
     import type { Pokemon } from '@/types';
     import SpinningImages from '@/components/SpinningImages.vue';
     import Chart from '@/components/Chart.vue';
-    import { AddToCompareList, IsInCompareList, RemoveFromCompareList } from '@/api/compareStore';
-import StatsTable from '@/components/StatsTable.vue';
+    import { Add, IsInCompareList, Remove } from '@/api/compareStore';
+    import StatsTable from '@/components/StatsTable.vue';
 
     const route = useRoute();
     const pokemon = ref<Pokemon | null>(null);
@@ -61,8 +61,8 @@ import StatsTable from '@/components/StatsTable.vue';
         <div v-else-if="error" class="status error">{{ error }}</div>
         <div v-else-if="pokemon" class="column">
             <h2>#{{ pokemon.id }} {{ pokemon.name }}</h2>
-            <button v-if="!IsInCompareList(pokemon.name)" @click="AddToCompareList(pokemon.name)" class="add">Add</button>
-            <button v-else @click="RemoveFromCompareList(pokemon.name)" class="remove">Remove</button>
+            <button v-if="!IsInCompareList(pokemon.name)" @click="Add(pokemon.name)" class="add">Add</button>
+            <button v-else @click="Remove(pokemon.name)" class="remove">Remove</button>
             <div class="row">
                 <div class="column">
                     <SpinningImages :pokemon="pokemon" />
